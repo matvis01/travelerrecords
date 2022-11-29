@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react"
 
 export default function Travel(props) {
-  const [like, setLike] = useState(false)
-
-  function clickLike() {
-    setLike((prev) => !prev)
-  }
-
   return (
     <div>
       <h1>wycieczka</h1>
