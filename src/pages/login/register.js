@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import style from "./loginStyle.module.css"
+import axios from "axios"
+
+const api = axios.create({
+  baseURL: "https://localhost:7263/api/Users",
+})
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -32,7 +37,19 @@ export default function Login() {
   }
 
   let navigate = useNavigate()
-  function register() {
+  async function submit() {
+    if (!user.name) {
+      alert("enter name")
+      return
+    }
+    if (!user.email) {
+      alert("enter email")
+      return
+    }
+    if (!user.password) {
+      alert("enter password")
+      return
+    }
     if (user.password !== user.confirmPassword) {
       alert("Password doesn't match")
       setUser((prev) => {
@@ -40,8 +57,17 @@ export default function Login() {
       })
       return
     }
-    console.log(user)
-    navigate("/home")
+
+    try {
+      const resp = await api.post("", {
+        username: user.name,
+        password: user.password,
+        email: user.email,
+      })
+      navigate("/home")
+    } catch (err) {
+      if (err.response.status === 409) alert("user exists")
+    }
   }
 
   return (
@@ -61,7 +87,7 @@ export default function Login() {
         type="password"
         value={user.confirmPassword}
       ></input>
-      <button onClick={register}>register</button>
+      <button onClick={submit}>register</button>
       <div className={style.loginBoxText}>
         <Link to="/login">login</Link>
       </div>
