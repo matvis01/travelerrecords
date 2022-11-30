@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import style from "./loginStyle.module.css"
 
 const api = axios.create({
-  baseURL: "https://localhost:7263/api/Users",
+  baseURL: "https://travel-records-backend.azurewebsites.net/api/Users",
 })
 
 export default function Login() {
