@@ -73,7 +73,7 @@ export default function Login() {
   return (
     <div className={style.loginBox}>
       <h1>Travel Records</h1>
-      <input onChange={setName} placeholder="name"></input>
+      <input onChange={setName} placeholder="username"></input>
       <input onChange={setEmail} placeholder="email" type="email"></input>
       <input
         onChange={setPassword}

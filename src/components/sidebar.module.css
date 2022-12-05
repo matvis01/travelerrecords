@@ -1,0 +1,43 @@
+.sideBar{
+    display: flex;
+    flex-direction: column;
+    background-color: #395144;
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    gap: 20px;
+    min-width: 130px;
+}
+
+.sideBar > img{
+    width: 80%;
+    border-radius: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    border: 2px solid #F0EBCE;
+}
+
+.sideBar > button{
+    width: 100%;
+    background-color: #4E6C50;
+    border: 0px solid #F0EBCE;
+    color: #F0EAD2;
+    font-size: 15px;
+    cursor: pointer;
+    align-self: center;
+    padding: 20px
+}
+
+
+
+.sideBar > h1{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0px 10px;
+    align-self: center;
+}
