@@ -7,6 +7,7 @@
 
 body{
     margin: 0;
+    
 }
 
 
@@ -18,12 +19,15 @@ body{
    width: 100%;
    margin-left: 20%;
 }
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 .text{
     font-size: 2.5rem;
     font-weight: 300;
     color: #4E6C50;
     text-align: center;
+    
+    font-family: 'Lobster', cursive;
 }
 
 .travels{
@@ -49,7 +53,7 @@ body{
     padding: 20px;
     border-radius: 10px;
     border: 1px solid #F0EBCE;
-    margin: 20px;
+    margin: 25px;
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 300px;
@@ -65,6 +69,8 @@ body{
     justify-content: center;
     margin-right: 10px;
     width: 100%;
+    
+    font-family: 'Lobster', cursive;
 }
 
 .travel > p{
@@ -79,18 +85,28 @@ body{
 }
 
 .add{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #6C584C;
-    color: #F0EBCE;
-    border: none;
-    font-size: 25px;
-
-    position:relative;
-    bottom: 25px;
-    left: 86%;
-
+    background-color: #4E6C50;
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid #F0EBCE;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 300px;
     cursor: pointer;
-    
+
+    color:#F0EAD2;
+    font-family: 'Lobster', cursive;
+
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 25px;
+    height:200px;
+
+    box-shadow: 0 3px 15px rgb(0 0 0 / 0.2);
 }

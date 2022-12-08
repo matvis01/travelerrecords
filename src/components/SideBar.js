@@ -12,7 +12,7 @@ export default function SideBar(props) {
   return (
     <nav className={styles.sideBar}>
       <img src={blankPicture} />
-      <h1>Name Surname</h1>
+      <h1 className={styles.name}>Name Surname</h1>
       <button>Edit Profile</button>
       <button
         onClick={() => {

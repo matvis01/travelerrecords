@@ -21,6 +21,12 @@
     border: 2px solid #F0EBCE;
 }
 
+.name{
+    color:#F0EAD2;
+    
+    font-family: 'Lobster', cursive;
+}
+
 .sideBar > button{
     width: 100%;
     background-color: #4E6C50;

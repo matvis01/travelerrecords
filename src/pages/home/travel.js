@@ -5,7 +5,7 @@ export default function Travel(props) {
   return (
     <div className={styles.travel}>
       <div className={styles.left}>
-        <h1>wycieczka</h1>
+        <h1>{props.nazwa ? props.nazwa : "wycieczka"}</h1>
         <img
           src={
             "https://media.zielonamapa.pl/images/europa/grecja/zakynthos/zakynthos.jpg"

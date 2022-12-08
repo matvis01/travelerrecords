@@ -10,13 +10,14 @@ export default function Home() {
       <div className={styles.content}>
         <h1 className={styles.text}>Places I've been to...</h1>
         <div className={styles.travels}>
+          <button className={styles.add}>add new travel</button>
+          <Travel nazwa="Grecja " />
           <Travel />
           <Travel />
           <Travel />
           <Travel />
           <Travel />
         </div>
-        <button className={styles.add}>+</button>
       </div>
     </div>
   )

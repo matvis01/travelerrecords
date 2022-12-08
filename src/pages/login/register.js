@@ -89,7 +89,7 @@ export default function Login() {
       ></input>
       <button onClick={submit}>register</button>
       <div className={style.loginBoxText}>
-        <Link to="/login">login</Link>
+        <Link to="/">login</Link>
       </div>
     </div>
   )
