@@ -17,13 +17,12 @@ export default function AddTravel(props) {
   return (
     <div className={styles.overlay}>
       <form className={styles.overlayInner}>
-        <label>Travel Title:</label>
-        <input type="text-box" />
-        <label>description:</label>
-        <input type="text" />
-        <label>cover photo:</label>
+        <label className={styles.text}>Travel Details:</label>
+        <input type="text-box" className={styles.destination} placeholder="Destination.."/>
+        <textarea className={styles.description} placeholder="Description of the trip.."></textarea>
+        <label className={styles.textCover}>Select cover photo:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
-        <input type="submit" value={"save"} className={styles.subimitBtn} />
+        <input type="submit" value={"Save"} className={styles.subimitBtn} />
       </form>
     </div>
   )

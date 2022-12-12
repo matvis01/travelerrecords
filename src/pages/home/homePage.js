@@ -17,7 +17,7 @@ export default function Home() {
         <h1 className={styles.text}>Places I've been to...</h1>
         <div className={styles.travels}>
           <button className={styles.add} onClick={changeAdding}>
-            add new travel
+            New travel
           </button>
           <Travel nazwa="Grecja " />
           <Travel />

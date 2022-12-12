@@ -97,7 +97,7 @@ body{
     color:#F0EAD2;
     font-family: 'Lobster', cursive;
 
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
     line-height: 20px;
 
@@ -109,4 +109,9 @@ body{
     height:200px;
 
     box-shadow: 0 3px 15px rgb(0 0 0 / 0.2);
+}
+
+.add:hover{
+    transform: scale(1.01);
+    transition: transform 0.1s;
 }
