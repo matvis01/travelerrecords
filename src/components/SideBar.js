@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import styles from "./sidebar.module.css"
 import { useNavigate } from "react-router-dom"
-import blankPicture from "../pictures/blankProfile.png"
+import blankPicture from "../assets/blankProfile.png"
 
 export default function SideBar(props) {
   const navigate = useNavigate()
