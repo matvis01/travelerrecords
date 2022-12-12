@@ -16,8 +16,6 @@ export default function Home() {
           <Travel />
           <Travel />
           <Travel />
-          <Travel />
-          <Travel />
         </div>
       </div>
     </div>
