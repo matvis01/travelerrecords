@@ -24,7 +24,6 @@ export default function Home() {
           <Travel />
           <Travel />
           <Travel />
-          <Travel />
         </div>
       </div>
       {adding && <AddTravel changeAdding={changeAdding} />}
