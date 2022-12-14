@@ -1,21 +1,41 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import styles from "../page.module.css"
+import { UserContext } from "../../../context/userContext"
+import api from "../../../api/api"
 
 export default function Travel(props) {
+  const { user } = useContext(UserContext)
+  const [image, setImage] = useState("")
+
+  useEffect(async () => {
+    // const res = await api.get(`/Storage/${user.userId}/${props.tripId}/0/0`)
+    // console.log(res.data)
+    // setImage(res.data)
+    try {
+      const res = await api.get(`/Storage/Get`)
+      let photo = res.data.find(
+        (el) => el.name == `${user.userId}_${props.tripId}_0_0.jpg`
+      )
+      setImage(photo.uri)
+    } catch (e) {
+      console.log(e)
+    }
+  }, [])
+
   return (
     <div className={styles.travel}>
-      <div className={styles.left}>
-        <h1>{props.nazwa ? props.nazwa : "wycieczka"}</h1>
+      <h1>{props.name ? props.name : "wycieczka"}</h1>
+
+      <div className={styles.down}>
         <img
           src={
-            "https://media.zielonamapa.pl/images/europa/grecja/zakynthos/zakynthos.jpg"
+            image ||
+            props.image ||
+            "https://cezim.pl/wp-content/uploads/2021/12/empty.jpg"
           }
         />
+        <p>{props.description}</p>
       </div>
-      <p>
-        ajadfosij foijaoip fds sgd sg gf s d sd d sdgf dgfgsfda sg afd gdfsgfds
-        d gfgfd gsgfd gf ss gfdf g sfgdgfsdfgsd
-      </p>
     </div>
   )
 }

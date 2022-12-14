@@ -19,6 +19,8 @@
     display: block;
     margin-top: 10px;
     border: 2px solid #F0EBCE;
+
+    /* object-fit: cover; */
 }
 
 .name{
