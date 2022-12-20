@@ -15,9 +15,9 @@ export default function Home() {
   const navigate = useNavigate()
 
   useEffect(async () => {
-    if (!user.userId) {
-      navigate("/")
-    }
+    // if (!user.userId) {
+    //   navigate("/")
+    // }
     try {
       const res = await api.get(`/Trips/${user.userId}/userTrips`)
       console.log(res.data)

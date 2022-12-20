@@ -9,6 +9,7 @@ function UserContextProvider(props) {
     password: "",
     email: "",
     bio: "",
+    image: "",
   })
 
   return (

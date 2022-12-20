@@ -8,17 +8,12 @@ export default function Travel(props) {
   const [image, setImage] = useState("")
 
   useEffect(async () => {
-    // const res = await api.get(`/Storage/${user.userId}/${props.tripId}/0/0`)
-    // console.log(res.data)
-    // setImage(res.data)
     try {
-      const res = await api.get(`/Storage/Get`)
-      let photo = res.data.find(
-        (el) => el.name == `${user.userId}_${props.tripId}_0_0.jpg`
-      )
-      setImage(photo.uri)
-    } catch (e) {
-      console.log(e)
+      const res = await api.get(`/Storage/${user.userId}/${props.tripId}/0/0`)
+      console.log(res.data)
+      setImage(res.data.uri)
+    } catch (err) {
+      // console.log(err)
     }
   }, [])
 

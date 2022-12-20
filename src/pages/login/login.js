@@ -22,7 +22,8 @@ export default function Login() {
   }
 
   let navigate = useNavigate()
-  async function login() {
+  async function login(e) {
+    await e.preventDefault()
     try {
       const res = await api.get(`/Users/${user.username}/${user.password}`)
       setUser(res.data)
@@ -34,26 +35,26 @@ export default function Login() {
   }
   return (
     <div className={style.loginPage}>
-      <div className={style.loginBox}>
+      <form className={style.loginBox} onSubmit={login}>
         <h1>Travel Records</h1>
         <input
           onChange={setUserName}
           placeholder="username"
-          type="email"
+          type="text-box"
         ></input>
         <input
           onChange={setPassword}
           placeholder="password"
           type="password"
         ></input>
-        <button onClick={login}>login</button>
+        <input type="submit" className={style.button} value={"Login"}></input>
         <div className={style.loginBoxText}>
           <p>dont have an account? </p>
           <div>
             <Link to="/register">register</Link>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

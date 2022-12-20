@@ -14,9 +14,15 @@ export default function SideBar(props) {
   }
   return (
     <nav className={styles.sideBar}>
-      <img src={blankPicture} />
+      <img src={user.image ? user.image : blankPicture} />
       <h1 className={styles.name}>{user.username}</h1>
-      <button>Edit Profile</button>
+      <button
+        onClick={() => {
+          navigate("/profile")
+        }}
+      >
+        Edit Profile
+      </button>
       <button
         onClick={() => {
           navigate("/home")
