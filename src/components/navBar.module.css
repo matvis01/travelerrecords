@@ -1,0 +1,61 @@
+.navBar{
+    display: flex;
+    width: 80%;
+    position: absolute;
+    top: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.navBar > img{
+    /* width: 80%;
+    object-fit: cover; 
+    border-radius: 100%;
+    /* height: auto; 
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    border: 2px solid #F0EBCE;
+
+      */
+}
+
+.name{
+    font-family: 'Lobster', cursive;
+}
+
+.navBar > button{
+    background-color: #16263500;
+    border-radius: 100px;
+    color: white;
+    border: 0px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 20px
+
+}
+
+.navBar > button:hover{
+    background-color: #F79334;
+    transition: 0.2s;
+
+}
+.navBar>button:last-of-type{
+   margin-left: auto;
+}
+
+.withBg{
+    background-color: #F79334 !important;
+}
+
+
+.navBar > h1{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0px 10px;
+    align-self: center;
+}

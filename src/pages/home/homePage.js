@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useContext } from "react"
 import Travel from "./components/travel"
-import SideBar from "../../components/SideBar"
+import NavBar from "../../components/NavBar"
 import styles from "./page.module.css"
 import AddTravel from "./components/addTravel"
 import { UserContext } from "../../context/userContext"
 import { useNavigate } from "react-router-dom"
 import api from "../../api/api"
+import image1 from "../../assets/Background.png"
+import image2 from "../../assets/Layer 2.png"
+import image3 from "../../assets/Layer 3.png"
 
 export default function Home() {
   const [adding, setAdding] = useState(false)
@@ -14,12 +17,15 @@ export default function Home() {
 
   const navigate = useNavigate()
 
-  useEffect(async () => {
+  useEffect(() => {
     // if (!user.userId) {
     //   navigate("/")
     // }
+    if (!user.userId) {
+      return undefined
+    }
     try {
-      const res = await api.get(`/Trips/${user.userId}/userTrips`)
+      const res = api.get(`/Trips/${user.userId}/userTrips`)
       console.log(res.data)
 
       setTravels(res.data)
@@ -61,7 +67,14 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <SideBar />
+      <NavBar />
+      <header>
+        <img src={image1} className={styles.im1} />
+        <img src={image2} className={styles.im2} />
+
+        <h1 className={styles.text}>Travel Records</h1>
+        <img src={image3} className={styles.im3} />
+      </header>
       <div className={styles.content}>
         <h1 className={styles.text}>Places I've been to...</h1>
         <div className={styles.travels}>

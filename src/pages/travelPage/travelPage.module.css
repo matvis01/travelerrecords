@@ -1,22 +1,7 @@
-.myGrid{
+.image{
     width: 80vw;
-    height: 100vh;
-    margin-left: 20%;
-    display: grid;
-    grid-template-columns: 40% auto;
-    grid-template-rows: 50% auto;
-
-    justify-items: center;
-    align-items: center;
+    height: 80vh;
+    position: absolute;
+    top:-500px;
+    scale: 120%;
 }
-
-/* 
-Light blue: This color could be used as a main color for the app, and could be used for backgrounds, buttons, and other elements.
-
-Coral: This bright, vibrant shade could be used as an accent color, and could be used to highlight important information or calls to action.
-
-Beige: A neutral shade like beige could be used as a background color or for text and other elements that need to be easy to read.
-
-Dark green: This rich, bold color could be used sparingly as an accent color, and could be used to draw attention to specific elements or sections of the app.
-
-Purple: This color could also be used as an accent, and could be used to add a touch of sophistication and elegance to the design. */

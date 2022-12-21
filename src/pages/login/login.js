@@ -50,9 +50,10 @@ export default function Login() {
         <input type="submit" className={style.button} value={"Login"}></input>
         <div className={style.loginBoxText}>
           <p>dont have an account? </p>
-          <div>
-            <Link to="/register">register</Link>
-          </div>
+
+          <Link to="/register" className={style.link}>
+            register
+          </Link>
         </div>
       </form>
     </div>

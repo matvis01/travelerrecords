@@ -19,18 +19,16 @@ export default function Travel(props) {
 
   return (
     <div className={styles.travel}>
+      <img
+        src={
+          image ||
+          props.image ||
+          "https://cezim.pl/wp-content/uploads/2021/12/empty.jpg"
+        }
+      />
       <h1>{props.name ? props.name : "wycieczka"}</h1>
 
-      <div className={styles.down}>
-        <img
-          src={
-            image ||
-            props.image ||
-            "https://cezim.pl/wp-content/uploads/2021/12/empty.jpg"
-          }
-        />
-        <p>{props.description}</p>
-      </div>
+      <div className={styles.down}>{/* <p>{props.description}</p> */}</div>
     </div>
   )
 }

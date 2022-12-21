@@ -74,36 +74,32 @@ export default function Login() {
 
   return (
     <div className={style.loginPage}>
-      <div className={style.loginBox}>
+      <form className={style.loginBox} onSubmit={submit}>
         <h1>Travel Records</h1>
         <input
           onChange={setName}
           placeholder="username"
-          value={user.username}
+          type="text-box"
         ></input>
-        <input
-          onChange={setEmail}
-          placeholder="email"
-          type="email"
-          value={user.email}
-        ></input>
+        <input onChange={setEmail} placeholder="email" type="email"></input>
         <input
           onChange={setPassword}
           placeholder="password"
           type="password"
-          value={user.password}
         ></input>
         <input
-          onChange={setConfirmPassword}
+          onChange={setConfPass}
           placeholder="confirm password"
           type="password"
-          value={confPass}
         ></input>
-        <button onClick={submit}>register</button>
+        <input type="submit" className={style.button} value={"Login"}></input>
         <div className={style.loginBoxText}>
-          <Link to="/">login</Link>
+          <p>already have an account? </p>
+          <Link className={style.link} to="/">
+            login
+          </Link>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

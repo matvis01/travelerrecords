@@ -1,34 +1,40 @@
 import React, { useEffect, useState, useContext } from "react"
-import styles from "./sidebar.module.css"
-import { useNavigate } from "react-router-dom"
+import styles from "./navBar.module.css"
+import { useNavigate, useLocation } from "react-router-dom"
 import blankPicture from "../assets/blankProfile.png"
 import { UserContext } from "../context/userContext"
 
 export default function SideBar(props) {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
+  const location = useLocation()
   console.log(user)
+  let { pathname } = location
+  console.log(pathname)
+
   function logout() {
     setUser(null)
     navigate("/")
   }
   return (
-    <nav className={styles.sideBar}>
-      <img src={user.image ? user.image : blankPicture} />
-      <h1 className={styles.name}>{user.username}</h1>
+    <nav className={styles.navBar}>
+      {/* <img src={user.image ? user.image : blankPicture} /> */}
+      {/* <h1 className={styles.name}>{user.username}</h1> */}
       <button
-        onClick={() => {
-          navigate("/profile")
-        }}
-      >
-        Edit Profile
-      </button>
-      <button
+        className={pathname === "/home" ? styles.withBg : styles.xd}
         onClick={() => {
           navigate("/home")
         }}
       >
-        My Journeys
+        Home
+      </button>
+      <button
+        className={pathname === "/profile" ? styles.withBg : styles.xd}
+        onClick={() => {
+          navigate("/profile")
+        }}
+      >
+        Profile
       </button>
       <button onClick={logout}>Log Out</button>
     </nav>

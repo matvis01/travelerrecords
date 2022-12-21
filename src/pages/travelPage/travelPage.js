@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react"
-import SideBar from "../../components/SideBar"
+import NavBar from "../../components/NavBar"
 import styles from "./travelPage.module.css"
 import { useParams } from "react-router-dom"
 import api from "../../api/api"
+import image from "../../assets/fullBg.jpg"
 
 export default function TravelPage(props) {
   const params = useParams()
   const [travel, setTravel] = useState({})
 
-  useEffect(async () => {}, [])
+  useEffect(() => {}, [])
   return (
     <div>
-      <SideBar />
-      <div className={styles.myGrid}>
-        <div className={styles.text}>
-          <h1>Venice</h1>
-          <p>oh aoidsa oijoiv;o ihoia lijvi</p>
-        </div>
-        <div className={styles.locations}></div>
-        <div className={styles.map}></div>
-        <div className={styles.stages}></div>
-      </div>
+      <img src={image} className={styles.image} />
+      <NavBar />
+
+      <div className={styles.myGrid}></div>
     </div>
   )
 }
