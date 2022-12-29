@@ -1,7 +1,67 @@
+.page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    
+}
+
 .image{
-    width: 80vw;
     height: 80vh;
+    width: 80vw;
+    object-fit: cover;
     position: absolute;
-    top:-500px;
+    top:-60%;
+    left: 60px;
     scale: 120%;
+   
+}
+
+.travel{
+    position: relative;
+    top: 300px;
+    width: 45%;
+}
+
+@media only screen and (max-width: 1800px) {
+   .travel{
+    width: 65%;
+   }
+}
+
+@media only screen and (max-width: 1000px) {
+   .travel{
+    width: 90%;
+   }
+}
+
+
+.start{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+.start > h1{
+    color: white
+}
+
+.end{
+    margin-top: -10px;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.end > h1{
+    color: white
+}
+
+
+.icon{
+    background-color: white;
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
 }

@@ -1,24 +1,34 @@
 import React, { useEffect, useState, useContext } from "react"
 import styles from "../page.module.css"
+import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../../context/userContext"
 import api from "../../../api/api"
 
 export default function Travel(props) {
   const { user } = useContext(UserContext)
   const [image, setImage] = useState("")
+  const navigate = useNavigate()
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get(`/Storage/${user.userId}/${props.tripId}/0/0`)
+        setImage(res.data.uri)
+        console.log(res.data)
+      } catch (e) {
+        console.error(e)
+      }
 
-  useEffect(async () => {
-    try {
-      const res = await api.get(`/Storage/${user.userId}/${props.tripId}/0/0`)
-      console.log(res.data)
-      setImage(res.data.uri)
-    } catch (err) {
-      // console.log(err)
+      fetchData()
     }
   }, [])
 
   return (
-    <div className={styles.travel}>
+    <div
+      className={styles.travel}
+      onClick={() => {
+        navigate(`/travel/${props.tripId}`)
+      }}
+    >
       <img
         src={
           image ||

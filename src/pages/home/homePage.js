@@ -14,6 +14,7 @@ export default function Home() {
   const [adding, setAdding] = useState(false)
   const [travels, setTravels] = useState([])
   const { user } = useContext(UserContext)
+  const [loading, setLoading] = useState(true)
 
   const navigate = useNavigate()
 
@@ -22,17 +23,21 @@ export default function Home() {
     //   navigate("/")
     // }
     if (!user.userId) {
-      return undefined
-    }
-    try {
-      const res = api.get(`/Trips/${user.userId}/userTrips`)
-      console.log(res.data)
-
-      setTravels(res.data)
-    } catch (e) {
-      console.log(e)
       return
     }
+
+    const fetchData = async () => {
+      try {
+        const res = await api.get(`/Trips/${user.userId}/userTrips`)
+        setTravels(res.data)
+        setLoading(false)
+      } catch (e) {
+        console.error(e)
+        return
+      }
+    }
+
+    fetchData()
   }, [])
 
   function changeAdding() {
@@ -81,15 +86,19 @@ export default function Home() {
           <div className={styles.add} onClick={changeAdding}>
             New travel
           </div>
-          {travels.map((travel) => (
-            <Travel
-              name={travel.title}
-              description={travel.tripDesc}
-              imageId={travel.imageId}
-              image={travel.image}
-              tripId={travel.tripId}
-            />
-          ))}
+          {loading ? (
+            <p>loading....</p>
+          ) : (
+            travels?.map((travel) => (
+              <Travel
+                name={travel.title}
+                description={travel.tripDesc}
+                imageId={travel.imageId}
+                image={travel.image}
+                tripId={travel.tripId}
+              />
+            ))
+          )}
         </div>
       </div>
       {adding && (

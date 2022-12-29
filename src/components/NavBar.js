@@ -8,9 +8,7 @@ export default function SideBar(props) {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
   const location = useLocation()
-  console.log(user)
   let { pathname } = location
-  console.log(pathname)
 
   function logout() {
     setUser(null)
