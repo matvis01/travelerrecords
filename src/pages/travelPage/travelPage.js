@@ -15,24 +15,27 @@ export default function TravelPage(props) {
   const [travel, setTravel] = useState({})
 
   return (
-    <div className={styles.page}>
-      <img src={image} className={styles.image} />
+    <>
       <NavBar />
-      <div className={styles.travel}>
-        <div className={styles.start}>
-          <BsHouse className={styles.icon} />
-          <h1>Trip started</h1>
-        </div>
-        <AddBtn />
-        <Step />
-        <AddBtn />
-        <ExpandedStep />
-        <AddBtn size="big" />
-        <div className={styles.end}>
-          <GrFlag className={styles.icon} />
-          <h1>Trip ended</h1>
+      <div className={styles.page}>
+        <img src={image} className={styles.image} />
+        <div className={styles.travel}>
+          <div className={styles.navBarBg}></div>
+          <div className={styles.start}>
+            <BsHouse className={styles.icon} />
+            <h1>Trip started</h1>
+          </div>
+          <AddBtn />
+          <Step />
+          <AddBtn />
+          <ExpandedStep />
+          <AddBtn size="big" />
+          <div className={styles.end}>
+            <GrFlag className={styles.icon} />
+            <h1>Trip ended</h1>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

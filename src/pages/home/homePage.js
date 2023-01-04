@@ -71,44 +71,47 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.page}>
+    <>
       <NavBar />
-      <header>
-        <img src={image1} className={styles.im1} />
-        <img src={image2} className={styles.im2} />
+      <div className={styles.page}>
+        <header>
+          <img src={image1} className={styles.im1} />
+          <img src={image2} className={styles.im2} />
 
-        <h1 className={styles.text}>Travel Records</h1>
-        <img src={image3} className={styles.im3} />
-      </header>
-      <div className={styles.content}>
-        <h1 className={styles.text}>Places I've been to...</h1>
-        <div className={styles.travels}>
-          <div className={styles.add} onClick={changeAdding}>
-            New travel
+          <h1 className={styles.text}>Travel Records</h1>
+          <img src={image3} className={styles.im3} />
+        </header>
+        <div className={styles.navBarBg}></div>
+        <div className={styles.content}>
+          <h1 className={styles.text}>Places I've been to...</h1>
+          <div className={styles.travels}>
+            <div className={styles.add} onClick={changeAdding}>
+              New travel
+            </div>
+            {loading ? (
+              <p>loading....</p>
+            ) : (
+              travels?.map((travel) => (
+                <Travel
+                  name={travel.title}
+                  description={travel.tripDesc}
+                  imageId={travel.imageId}
+                  image={travel.image}
+                  tripId={travel.tripId}
+                />
+              ))
+            )}
           </div>
-          {loading ? (
-            <p>loading....</p>
-          ) : (
-            travels?.map((travel) => (
-              <Travel
-                name={travel.title}
-                description={travel.tripDesc}
-                imageId={travel.imageId}
-                image={travel.image}
-                tripId={travel.tripId}
-              />
-            ))
-          )}
         </div>
+        {adding && (
+          <AddTravel
+            changeAdding={changeAdding}
+            add={(name, description, image, file) =>
+              addTravel(name, description, image)
+            }
+          />
+        )}
       </div>
-      {adding && (
-        <AddTravel
-          changeAdding={changeAdding}
-          add={(name, description, image, file) =>
-            addTravel(name, description, image)
-          }
-        />
-      )}
-    </div>
+    </>
   )
 }

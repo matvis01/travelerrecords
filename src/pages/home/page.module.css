@@ -107,7 +107,14 @@ header{
 }
 
 
-
+.navBarBg{
+    width: 100vw;
+    height: 100px;
+    background-color: #162635;
+    position: sticky;
+    top: -1px;
+    z-index: 9;
+}
 
 .travel:hover{
     transform: scale(1.01);

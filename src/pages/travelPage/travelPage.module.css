@@ -3,9 +3,27 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
     overflow-x: hidden;
     
+}
+
+.navBarBg{
+    width: 200%;
+    height: 100px;
+    align-self: center;
+    justify-self: center;
+    background-color: #162635;
+    
+    position: sticky;
+    top: 0px;
+    left: -10px;
+    margin-left: -50%;
+    /* z-index: 9; */
+}
+
+.empty{
+    height: 200px;
 }
 
 .image{
@@ -13,15 +31,15 @@
     width: 80vw;
     object-fit: cover;
     position: absolute;
-    top:-60%;
+    top: -60%;
     left: 60px;
     scale: 120%;
-   
+    z-index: -10;
 }
 
 .travel{
     position: relative;
-    top: 300px;
+    top: 200px;
     width: 45%;
 }
 
