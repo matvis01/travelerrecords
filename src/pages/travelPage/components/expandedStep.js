@@ -1,32 +1,35 @@
-import React from "react"
+import React, { useMemo } from "react"
 import styles from "./components.module.css"
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
 
 export default function ExpandedStep(props) {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+  })
+  // const center = useMemo(() => ({ lat: 44, lng: -80 }, []))
+
+  console.log("Lat lng w expanded step: " + props.details.position)
+  console.log(props)
+  const center = props.details.position
   return (
     <div className={styles.step}>
       <div className={styles.top}>
-        <h1>Rhodes</h1>
-        <p>28 december 22</p>
+        <h1>{props.details.title}</h1>
+        <p>{props.details.date}</p>
       </div>
-      <p>
-        ojdfao noda nfona od oiad oa oifoaof nk o ngnoi o ioi doasnkjnf lan
-        fdlkdf ladf lka sladsfn lgn ldfs lkdfslf df djas l fln l nfdlk dnff jdfa
-        jljlkdsnlkfbnlkzjfgd
-      </p>
+      <p>{props.details.description}</p>
       <div className={styles.gallery}>
-        <img
-          className={styles.galleryImage}
-          src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/81/2f/1e/caption.jpg?w=700&h=-1&s=1&cx=3705&cy=1254&chk=v1_660f815f73069c16e175"
-        />
-        <img
-          className={styles.galleryImage}
-          src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/81/2f/1e/caption.jpg?w=700&h=-1&s=1&cx=3705&cy=1254&chk=v1_660f815f73069c16e175"
-        />
+        {props.details.images.map((el) => (
+          <img className={styles.galleryImage} src={el} />
+        ))}
       </div>
-      <img
-        className={styles.map}
-        src="https://media.istockphoto.com/id/1137117479/vector/city-urban-streets-roads-abstract-map.jpg?s=612x612&w=0&k=20&c=QXajx6ZG-OmfLmwmKkeCA03rcFPuFHmSTtCpJYiDFSo="
-      />
+      {isLoaded ? (
+        <GoogleMap zoom={10} center={center} mapContainerClassName={styles.map}>
+          <Marker position={center} />
+        </GoogleMap>
+      ) : (
+        <h1>Loading...</h1>
+      )}
       <button className={styles.editButton}>edit step</button>
     </div>
   )

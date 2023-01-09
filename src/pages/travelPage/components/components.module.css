@@ -50,7 +50,6 @@
 
 .plus:hover + .text {
     display: inline-block;
-    transition: 3s;
   }
 
   
@@ -126,7 +125,8 @@
 }
 
 .map{
-  max-width: 80%;
+  height: 200px;
+  width: 80%;
 }
 
 .editButton{
@@ -147,4 +147,132 @@
     box-shadow: none;
     transform: translateY(2px);
     transition: 0.1s;
+}
+
+.overlay {
+
+  height: 100%;
+  width: 100%;
+  
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.336);
+  z-index: 20;
+}
+
+.overlayInner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color:#243D51;
+
+  width: 40%;
+  height: 90%;
+  min-height: 400px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+
+.subimitBtn{
+  box-shadow: 0 3px rgba(2, 2, 2, 0.384);
+  margin-top: 20px;
+  width: 100px;
+  height: 50px;
+  align-self: center;
+  font-family: 'Lobster', cursive;
+  text-align: center;
+  max-width: 90px;
+  height: 50px;
+  background-color: #F79334;
+  border-radius: 15px;
+  border: 10px solid rgba(0, 0, 0, 0);
+  color: white;
+  font-size: 120%;
+  cursor: pointer;
+}
+
+
+.subimitBtn:active{
+  box-shadow: none;
+  transform: translateY(2px);
+  transition: 0.2s;
+} 
+
+.dropdownMenu {
+  position: absolute; 
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.dropdownMenu > li {
+  list-style: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdownMenu > li:hover {
+  background-color: #f8f8f8;
+}
+
+.textInAdding{
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  font-family: 'Lobster', cursive;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.description{
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
+  font-family: "Verdana";
+}
+
+.destination{
+  width: 100%;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
+  font-family: "Verdana";
+}
+
+.textCover{
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  font-family: 'Lobster', cursive;
+
+  display: flex;
+  flex-direction: column;
 }
