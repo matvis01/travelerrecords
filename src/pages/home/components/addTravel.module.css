@@ -35,7 +35,7 @@
 
 .subimitBtn{
     box-shadow: 0 3px rgba(2, 2, 2, 0.384);
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100px;
     height: 50px;
     align-self: center;
@@ -104,3 +104,17 @@
     display: flex;
     flex-direction: column;
   }
+
+  .chooseFile{
+    display: block;
+  color: white;
+  font-family: 'Lobster', cursive;
+}
+
+.chooseFile::-webkit-file-upload-button{
+    font-weight: bold;
+    color: black;
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 3px;
+}
