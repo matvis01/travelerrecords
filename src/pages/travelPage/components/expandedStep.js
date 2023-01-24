@@ -1,15 +1,25 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import styles from "./components.module.css"
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
+import Stage from "./stage"
+import AddStage from "./addStage"
 
 export default function ExpandedStep(props) {
+  const [stages, setStages] = useState([])
+  const [addingStage, setAddingStage] = useState({ adding: false, type: "" })
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
   })
-  // const center = useMemo(() => ({ lat: 44, lng: -80 }, []))
 
-  console.log("Lat lng w expanded step: " + props.details.position)
-  console.log(props)
+  function saveStage(data) {
+    setStages((prev) => {
+      return [...prev, data]
+    })
+
+    console.log("stages:")
+    console.log(stages)
+  }
+
   const center = props.details.position
   return (
     <div className={styles.step}>
@@ -18,11 +28,37 @@ export default function ExpandedStep(props) {
         <p>{props.details.date}</p>
       </div>
       <p>{props.details.description}</p>
-      <div className={styles.gallery}>
-        {props.details.images.map((el) => (
-          <img className={styles.galleryImage} src={el} />
-        ))}
-      </div>
+      {stages?.map((el, i) => {
+        return <Stage key={i} data={el} />
+      })}
+      {addingStage.adding ? (
+        <AddStage
+          name={addingStage.type}
+          save={saveStage}
+          changeAdding={() => setAddingStage({ adding: false, type: "" })}
+        />
+      ) : (
+        <>
+          <button
+            onClick={() => setAddingStage({ adding: true, type: "images" })}
+          >
+            add Photos
+          </button>
+          <button
+            onClick={() =>
+              setAddingStage({ adding: true, type: "description" })
+            }
+          >
+            add Description
+          </button>
+          <button
+            onClick={() => setAddingStage({ adding: true, type: "atraction" })}
+          >
+            add Atraction
+          </button>
+        </>
+      )}
+
       {isLoaded ? (
         <GoogleMap zoom={10} center={center} mapContainerClassName={styles.map}>
           <Marker position={center} />
