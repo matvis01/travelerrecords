@@ -18,6 +18,14 @@ export default function AddTravel(props) {
     libraries: libraries,
   })
 
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions,
+  } = usePlacesAutocomplete()
+
   // const handleImageChange = (event) => {
   //   const file = event.target.files[0]
   //   if (file) {
@@ -49,7 +57,7 @@ export default function AddTravel(props) {
       date: date,
       images: images,
     }
-    props.save(details, -1)
+    props.save(details, props.index)
     props.changeAdding()
   }
 
@@ -84,6 +92,7 @@ export default function AddTravel(props) {
               onClick={(e) => {
                 console.log(e.target.value)
                 setValue(e.target.value)
+                clearSuggestions()
               }}
             >
               {desc}

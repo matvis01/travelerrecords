@@ -14,7 +14,7 @@ export default function Home() {
   const [adding, setAdding] = useState(false)
   const [travels, setTravels] = useState([])
   const { user } = useContext(UserContext)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -44,23 +44,26 @@ export default function Home() {
     setAdding((prev) => !prev)
   }
 
-  async function addTravel(name, description, image) {
-    setTravels((prev) => [
-      ...prev,
-      { title: name, tripDesc: description, image: image },
-    ])
+  function addTravel(name, description, image) {
     let travelId = 0
 
-    try {
-      const res = await api.post(`/Trips`, {
-        userId: user.userId,
-        tripDesc: description,
-        title: name,
-      })
-      travelId = res.data.travelId
-    } catch (e) {
-      console.log(e)
-    }
+    // try {
+    //   const res = api.post(`/Trips`, {
+    //     userId: user.userId,
+    //     tripDesc: description,
+    //     title: name,
+    //   })
+    //   travelId = res.data.travelId
+    // } catch (e) {
+    //   console.log(e)
+    // }
+
+    setTravels((prev) => [
+      ...prev,
+      { title: name, tripDesc: description, image: image, tripId: travelId },
+    ])
+
+    console.log(travels)
     // try {
     //   const res = await api.post(`/Trips/${user.userId}/${travelId}/0/0`, {
     //     image,
@@ -91,11 +94,12 @@ export default function Home() {
             {loading ? (
               <p>loading....</p>
             ) : (
-              travels?.map((travel) => (
+              travels.map((travel, index) => (
                 <Travel
+                  key={index}
                   name={travel.title}
                   description={travel.tripDesc}
-                  imageId={travel.imageId}
+                  // imageId={travel.imageId}
                   image={travel.image}
                   tripId={travel.tripId}
                 />

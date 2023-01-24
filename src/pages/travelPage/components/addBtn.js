@@ -3,7 +3,7 @@ import styles from "./components.module.css"
 
 export default function AddBtn(props) {
   function add() {
-    props.changeAdding()
+    props.changeAdding(props.index)
   }
   return (
     <div className={props.size === "big" ? styles.addBtnBig : styles.addBtn}>

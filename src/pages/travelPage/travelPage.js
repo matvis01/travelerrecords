@@ -10,33 +10,48 @@ import AddBtn from "./components/addBtn"
 import Step from "./components/step"
 import ExpandedStep from "./components/expandedStep"
 import AddStep from "./components/addStep"
+import { ParallaxProvider, useParallax } from "react-scroll-parallax"
 
 export default function TravelPage(props) {
   const params = useParams()
   const [travel, setTravel] = useState([])
   const [focused, setFocused] = useState(-1)
-  const [adding, setAdding] = useState(false)
-  let addingIndex = -1
+  const [adding, setAdding] = useState(true)
+  const [addingIndex, setAddingIndex] = useState(-1)
+
+  const parallax = useParallax({
+    speed: -100,
+  })
 
   useEffect(() => {
-    // changeAdding()
-    // focused.length ? setAdding(false) : setAdding(true)
+    changeAdding()
   }, [])
 
   function changeFocused(index) {
     setFocused(index)
   }
 
-  function changeAdding() {
+  function changeAdding(index) {
+    setAddingIndex(index)
+
     setAdding((prev) => !prev)
   }
 
   console.log(travel)
 
   function addStep(details, index) {
+    let before = []
+    let after = []
+    for (let i = 0; i < travel.length; i++) {
+      if (i < index) {
+        before.push(travel[i])
+      } else {
+        after.push(travel[i])
+      }
+    }
     setTravel((prev) => {
       return [
-        ...prev,
+        ...before,
         {
           title: details.title,
           position: details.position,
@@ -44,6 +59,7 @@ export default function TravelPage(props) {
           date: details.date,
           images: details.images,
         },
+        ...after,
       ]
     })
   }
@@ -71,17 +87,7 @@ export default function TravelPage(props) {
     <>
       <div className={styles.page}>
         <NavBar />
-        {adding && (
-          <AddStep
-            save={(details, index) => {
-              addStep(details, index)
-            }}
-            changeAdding={changeAdding}
-            index={addingIndex}
-          />
-        )}
         <div className={styles.travel}>
-          <img src={image} className={styles.image} />
           <div className={styles.navBarBg}></div>
           <div className={styles.start}>
             <BsHouse className={styles.icon} />
@@ -98,6 +104,16 @@ export default function TravelPage(props) {
             <h1>Trip ended</h1>
           </div>
         </div>
+        <img ref={parallax.ref} src={image} className={styles.image} />
+        {adding && (
+          <AddStep
+            save={(details, index) => {
+              addStep(details, index)
+            }}
+            changeAdding={changeAdding}
+            index={addingIndex}
+          />
+        )}
       </div>
     </>
   )

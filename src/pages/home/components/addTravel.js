@@ -47,6 +47,9 @@ export default function AddTravel(props) {
         ></textarea>
         <label className={styles.textCover}>Select cover photo:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
+        <button className={styles.subimitBtn} onClick={props.changeAdding}>
+          cancel
+        </button>
         <input type="submit" value={"Save"} className={styles.subimitBtn} />
       </form>
     </div>
