@@ -37,26 +37,27 @@ export default function Profile(props) {
       <NavBar />
 
       <form className={styles.myForm} onSubmit={submit}>
-        <label>Profile picture: </label>
-        <input type="file" onChange={savePicture}></input>
-        <label>username: </label>
+        <label className={styles.text}>Profile settings: </label>
         <input
           type="text-box"
+          placeholder="Username"
+          className={styles.inputCredentials}
           value={userName}
           onChange={(e) => {
             setUserName(e.target.value)
           }}
         />
-
-        <label>password: </label>
         <input
           type="text-box"
+          placeholder="Password"
+          className={styles.inputCredentials}
           value={password}
           onChange={(e) => {
             setPassword(e.target.value)
           }}
         />
-        <input type="submit" value="submit" className={styles.button} />
+        <input type="file" className={styles.chooseFile} onChange={savePicture}></input>
+        <input type="submit" value="Submit" className={styles.button} />
       </form>
     </div>
   )
