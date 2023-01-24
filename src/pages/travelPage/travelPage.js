@@ -81,7 +81,7 @@ export default function TravelPage(props) {
           />
         )}
         <div className={styles.travel}>
-          {/* <img src={image} className={styles.image} /> */}
+          <img src={image} className={styles.image} />
           <div className={styles.navBarBg}></div>
           <div className={styles.start}>
             <BsHouse className={styles.icon} />

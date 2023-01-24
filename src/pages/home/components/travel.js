@@ -26,7 +26,7 @@ export default function Travel(props) {
     <div
       className={styles.travel}
       onClick={() => {
-        navigate(`/travel/${props.tripId}`)
+        navigate(`/travel/${props.klucz}`)
       }}
     >
       <img

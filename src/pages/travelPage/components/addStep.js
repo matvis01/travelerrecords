@@ -18,16 +18,16 @@ export default function AddTravel(props) {
     libraries: libraries,
   })
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        setImages((prev) => [...prev, event.target.result])
-      }
-      reader.readAsDataURL(file)
-    }
-  }
+  // const handleImageChange = (event) => {
+  //   const file = event.target.files[0]
+  //   if (file) {
+  //     const reader = new FileReader()
+  //     reader.onload = (event) => {
+  //       setImages((prev) => [...prev, event.target.result])
+  //     }
+  //     reader.readAsDataURL(file)
+  //   }
+  // }
   const {
     ready,
     value,
@@ -107,9 +107,9 @@ export default function AddTravel(props) {
             setDescription(e.target.value)
           }}
         ></textarea>
-        <label className={styles.textCover}>Select photos:</label>
+        {/* <label className={styles.textCover}>Select photos:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
-        <p>Added Photos: {images.length}</p>
+        <p>Added Photos: {images.length}</p> */}
         <div>
           <button
             className={styles.subimitBtn}
