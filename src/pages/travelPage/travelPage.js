@@ -10,7 +10,8 @@ import AddBtn from "./components/addBtn"
 import Step from "./components/step"
 import ExpandedStep from "./components/expandedStep"
 import AddStep from "./components/addStep"
-import { ParallaxProvider, useParallax } from "react-scroll-parallax"
+
+import { useParallax } from "react-scroll-parallax"
 
 export default function TravelPage(props) {
   const params = useParams()
@@ -37,8 +38,6 @@ export default function TravelPage(props) {
     setAdding((prev) => !prev)
   }
 
-  console.log(travel)
-
   function addStep(details, index) {
     let before = []
     let after = []
@@ -49,7 +48,7 @@ export default function TravelPage(props) {
         after.push(travel[i])
       }
     }
-    setTravel((prev) => {
+    setTravel(() => {
       return [
         ...before,
         {

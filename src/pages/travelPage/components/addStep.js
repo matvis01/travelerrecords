@@ -26,23 +26,16 @@ export default function AddTravel(props) {
     clearSuggestions,
   } = usePlacesAutocomplete()
 
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0]
-  //   if (file) {
-  //     const reader = new FileReader()
-  //     reader.onload = (event) => {
-  //       setImages((prev) => [...prev, event.target.result])
-  //     }
-  //     reader.readAsDataURL(file)
-  //   }
-  // }
-  const {
-    ready,
-    value,
-    setValue,
-    suggestions: { status, data },
-    clearSuggestions,
-  } = usePlacesAutocomplete()
+  const handleImageChange = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        setImages((prev) => [...prev, event.target.result])
+      }
+      reader.readAsDataURL(file)
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -116,9 +109,9 @@ export default function AddTravel(props) {
             setDescription(e.target.value)
           }}
         ></textarea>
-        {/* <label className={styles.textCover}>Select photos:</label>
+        <label className={styles.textCover}>Select photos:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
-        <p>Added Photos: {images.length}</p> */}
+        <p>Added Photos: {images.length}</p>
         <div>
           <button
             className={styles.subimitBtn}
