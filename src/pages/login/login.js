@@ -1,9 +1,7 @@
-import axios from "axios"
 import React, { Component, useEffect, useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import style from "./loginStyle.module.css"
 import { UserContext } from "../../context/userContext"
-
 import api from "../../api/api"
 
 export default function Login() {
@@ -23,10 +21,15 @@ export default function Login() {
 
   let navigate = useNavigate()
   async function login(e) {
-    await e.preventDefault()
+    e.preventDefault()
     try {
-      const res = await api.get(`/Users/${user.username}/${user.password}`)
-      setUser(res.data)
+      // const res = api.get(`/Users/${user.username}/${user.password}`)
+      const res = await api.post("/Login", {
+        username: user.username,
+        password: user.password,
+      })
+      console.log(res)
+      // setUser(res.data)
       navigate("/home")
     } catch (err) {
       console.log(err)

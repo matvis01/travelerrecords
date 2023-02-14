@@ -36,8 +36,10 @@ export default function Login() {
   }
 
   let navigate = useNavigate()
-  console.log(user)
-  async function submit() {
+
+  async function submit(e) {
+    await e.preventDefault()
+
     if (!user.username) {
       alert("enter username")
       return
@@ -64,8 +66,8 @@ export default function Login() {
         password: user.password,
         email: user.email,
       })
-      setUser(res.data)
-      navigate("/home")
+      // setUser(res.data)
+      navigate("/")
     } catch (err) {
       setUser({})
       if (err.response.status === 409) alert("user exists")
@@ -88,11 +90,15 @@ export default function Login() {
           type="password"
         ></input>
         <input
-          onChange={setConfPass}
+          onChange={setConfirmPassword}
           placeholder="confirm password"
           type="password"
         ></input>
-        <input type="submit" className={style.button} value={"Login"}></input>
+        <input
+          type="submit"
+          className={style.button}
+          value={"register"}
+        ></input>
         <div className={style.loginBoxText}>
           <p>already have an account? </p>
           <Link className={style.link} to="/">

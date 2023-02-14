@@ -9,7 +9,7 @@ import api from "../../api/api"
 import image1 from "../../assets/Background.png"
 import image2 from "../../assets/Layer 2.png"
 import image3 from "../../assets/Layer 3.png"
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link, animateScroll as scroll } from "react-scroll"
 
 export default function Home() {
   const [adding, setAdding] = useState(false)
@@ -45,11 +45,10 @@ export default function Home() {
     setAdding((prev) => !prev)
     //scroll.scrollToTop(); - probowałem po nacisnieciu przycisku zeby scrollowac na poczatek strony
   }
-  
 
   function addTravel(name, description, image) {
     let travelId = 0
-    
+
     // try {
     //   const res = api.post(`/Trips`, {
     //     userId: user.userId,
@@ -110,15 +109,15 @@ export default function Home() {
             )}
           </div>
         </div>
-        {adding && (
-          <AddTravel
-            changeAdding={changeAdding}
-            add={(name, description, image, file) =>
-              addTravel(name, description, image)
-            }
-          />
-        )}
       </div>
+      {adding && (
+        <AddTravel
+          changeAdding={changeAdding}
+          add={(name, description, image, file) =>
+            addTravel(name, description, image)
+          }
+        />
+      )}
     </>
   )
 }

@@ -38,25 +38,28 @@ export default function ExpandedStep(props) {
           changeAdding={() => setAddingStage({ adding: false, type: "" })}
         />
       ) : (
-        <>
+        <div className={styles.addButtons}>
           <button
+            className={styles.editButton}
             onClick={() => setAddingStage({ adding: true, type: "images" })}
           >
-            add Photos
+            Photos
           </button>
           <button
+            className={styles.editButton}
             onClick={() =>
               setAddingStage({ adding: true, type: "description" })
             }
           >
-            add Description
+            Description
           </button>
           <button
+            className={styles.editButton}
             onClick={() => setAddingStage({ adding: true, type: "atraction" })}
           >
-            add Atraction
+            Atraction
           </button>
-        </>
+        </div>
       )}
 
       {isLoaded ? (

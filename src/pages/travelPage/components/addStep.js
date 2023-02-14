@@ -109,10 +109,10 @@ export default function AddTravel(props) {
             setDescription(e.target.value)
           }}
         ></textarea>
-        <label className={styles.textCover}>Select photos:</label>
+        {/* <label className={styles.textCover}>Select photos:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
-        <p>Added Photos: {images.length}</p>
-        <div>
+        <p>Added Photos: {images.length}</p> */}
+        <div className={styles.buttons}>
           <button
             className={styles.subimitBtn}
             onClick={() => {
