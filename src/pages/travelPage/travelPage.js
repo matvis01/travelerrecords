@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
+import { UserContext } from "../../context/userContext"
 import NavBar from "../../components/NavBar"
 import styles from "./travelPage.module.css"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { BsHouse } from "react-icons/bs"
 import { GrFlag } from "react-icons/gr"
-import api from "../../api/api"
+import api, { addAuthToken } from "../../api/api"
 import image from "../../assets/fullBg.jpg"
 import AddBtn from "./components/addBtn"
 import Step from "./components/step"
@@ -14,7 +15,8 @@ import AddStep from "./components/addStep"
 import { useParallax } from "react-scroll-parallax"
 
 export default function TravelPage(props) {
-  const params = useParams()
+  const travelId = useParams().id
+  const { userId } = useContext(UserContext).user
   const [travel, setTravel] = useState([])
   const [focused, setFocused] = useState(-1)
   const [adding, setAdding] = useState(true)
@@ -23,9 +25,22 @@ export default function TravelPage(props) {
   const parallax = useParallax({
     speed: -100,
   })
-
+  const navigate = useNavigate()
   useEffect(() => {
     changeAdding()
+
+    if (!localStorage.getItem("token")) {
+      navigate("/")
+    }
+    async function fetchData() {
+      try {
+        const res = await api.get(`Stages/${travelId}`, addAuthToken)
+        console.log(res)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchData()
   }, [])
 
   function changeFocused(index) {
@@ -38,7 +53,7 @@ export default function TravelPage(props) {
     setAdding((prev) => !prev)
   }
 
-  function addStep(details, index) {
+  async function addStep(details, index) {
     let before = []
     let after = []
     for (let i = 0; i < travel.length; i++) {
@@ -61,6 +76,26 @@ export default function TravelPage(props) {
         ...after,
       ]
     })
+
+    //{lat: 32.7766642, lng: -96.79698789999999}
+    console.log(details)
+    try {
+      const res = await api.post(
+        `/Stages`,
+        {
+          userId: userId,
+          tripId: travelId,
+          title: details.title,
+          stageDesc: details.description,
+          creationDate: details.date,
+          longitude: details.position.lng,
+          latitude: details.position.lat,
+        },
+        addAuthToken
+      )
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const steps = travel?.map((el, index) => {

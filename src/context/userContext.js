@@ -1,16 +1,12 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 const UserContext = React.createContext()
 
 function UserContextProvider(props) {
-  const [user, setUser] = useState({
-    userId: 0,
-    imageId: 0,
-    username: "",
-    password: "",
-    email: "",
-    bio: "",
-    image: "",
-  })
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user))
+  }, [user])
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

@@ -5,21 +5,40 @@ export default function AddTravel(props) {
   const [image, setImage] = useState(null)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
+  const [file, setFile] = useState()
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0]
-    console.log(event.target.files)
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        setImage(event.target.result)
-      }
-      reader.readAsDataURL(file)
-    }
+    setFile(event.target.files[0])
+    // console.log(file)
+
+    // let formData = new FormData()
+    // formData.append("file", event.target.files[0])
+    // formData.append("filename", event.target.files[0].name)
+
+    // setImage(event.target.result)
+    // console.log(event.target.files)
+
+    // let imageFile = event.target.files[0]
+
+    // if (imageFile) {
+    //   const reader = new FileReader()
+    //   reader.onload = (event) => {
+    //     // setImage(event.target.result)
+    //     setValues({
+    //       imageFile: imageFile,
+    //       imageSrc: event.target.result,
+    //     })
+    //   }
+    //   reader.readAsDataURL(imageFile)
+    // }
   }
   async function handleSubmit(e) {
     e.preventDefault()
-    props.add(title, description, image)
+
+    const formData = new FormData()
+    formData.append("file", file)
+
+    props.add(title, description, formData)
 
     props.changeAdding()
   }

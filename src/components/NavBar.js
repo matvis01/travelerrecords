@@ -12,6 +12,7 @@ export default function SideBar(props) {
 
   function logout() {
     setUser(null)
+    localStorage.setItem("token", "")
     navigate("/")
   }
   return (

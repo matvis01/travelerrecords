@@ -20,6 +20,7 @@ export default function ExpandedStep(props) {
     console.log(stages)
   }
 
+  // console.log(" props.details.position:", props.details.position)
   const center = props.details.position
   return (
     <div className={styles.step}>

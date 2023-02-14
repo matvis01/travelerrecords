@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import style from "./loginStyle.module.css"
 import { UserContext } from "../../context/userContext"
-import api from "../../api/api"
+import api, { addAuthToken } from "../../api/api"
 
 export default function Login() {
   const { user, setUser } = useContext(UserContext)
@@ -23,14 +23,23 @@ export default function Login() {
   async function login(e) {
     e.preventDefault()
     try {
-      // const res = api.get(`/Users/${user.username}/${user.password}`)
-      const res = await api.post("/Login", {
-        username: user.username,
-        password: user.password,
-      })
-      console.log(res)
-      // setUser(res.data)
-      navigate("/home")
+      const res = await api
+        .post("/Login", {
+          username: user.username,
+          password: user.password,
+        })
+        .then(async (res) => {
+          const token = res.data
+          console.log("token:", token)
+          localStorage.setItem("token", token)
+          const res2 = await api.get(
+            `/Users/${user.username}/${user.password}`,
+            addAuthToken
+          )
+          setUser(res2.data)
+          localStorage.setItem("user", JSON.stringify(res2.data))
+          navigate("/home")
+        })
     } catch (err) {
       console.log(err)
       alert("user not found")

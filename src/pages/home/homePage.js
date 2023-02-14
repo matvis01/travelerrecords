@@ -10,6 +10,7 @@ import image1 from "../../assets/Background.png"
 import image2 from "../../assets/Layer 2.png"
 import image3 from "../../assets/Layer 3.png"
 import { Link, animateScroll as scroll } from "react-scroll"
+import { addAuthToken } from "../../api/api"
 
 export default function Home() {
   const [adding, setAdding] = useState(false)
@@ -20,16 +21,15 @@ export default function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // if (!user.userId) {
-    //   navigate("/")
-    // }
-    if (!user.userId) {
-      return
+    if (!localStorage.getItem("token")) {
+      navigate("/")
     }
-
     const fetchData = async () => {
       try {
-        const res = await api.get(`/Trips/${user.userId}/userTrips`)
+        const res = await api.get(
+          `/Trips/${user.userId}/userTrips`,
+          addAuthToken
+        )
         setTravels(res.data)
         setLoading(false)
       } catch (e) {
@@ -37,7 +37,6 @@ export default function Home() {
         return
       }
     }
-
     fetchData()
   }, [])
 
@@ -46,33 +45,45 @@ export default function Home() {
     //scroll.scrollToTop(); - probowałem po nacisnieciu przycisku zeby scrollowac na poczatek strony
   }
 
-  function addTravel(name, description, image) {
-    let travelId = 0
+  async function addTravel(name, description, image) {
+    let tripId = 0
 
-    // try {
-    //   const res = api.post(`/Trips`, {
-    //     userId: user.userId,
-    //     tripDesc: description,
-    //     title: name,
-    //   })
-    //   travelId = res.data.travelId
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    //post travel
+    try {
+      const res = await api.post(
+        `/Trips`,
+        {
+          userId: user.userId,
+          tripDesc: description,
+          title: name,
+        },
+        addAuthToken
+      )
+      tripId = res.data.tripId
+    } catch (e) {
+      console.log(e)
+    }
+
+    try {
+      const res = await api.post(
+        `/Storage/${user.userId}/${tripId}/0/0`,
+        image,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      image = res.data.uri
+    } catch (e) {
+      console.log(e)
+    }
 
     setTravels((prev) => [
       ...prev,
-      { title: name, tripDesc: description, image: image, tripId: travelId },
+      { title: name, tripDesc: description, image: image, tripId: tripId },
     ])
-
-    console.log(travels)
-    // try {
-    //   const res = await api.post(`/Trips/${user.userId}/${travelId}/0/0`, {
-    //     image,
-    //   })
-    // } catch (e) {
-    //   console.log(e)
-    // }
   }
 
   return (
@@ -113,7 +124,7 @@ export default function Home() {
       {adding && (
         <AddTravel
           changeAdding={changeAdding}
-          add={(name, description, image, file) =>
+          add={(name, description, image) =>
             addTravel(name, description, image)
           }
         />
