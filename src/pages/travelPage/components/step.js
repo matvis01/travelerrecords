@@ -1,7 +1,24 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./components.module.css"
+import api, { addAuthToken } from "../../../api/api"
 
 export default function Step(props) {
+  const [image, setImage] = useState("")
+  const { details } = props
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await api.get(
+          `/Storage/${details.userId}/${details.travelId}/${details.stageId}/0`,
+          addAuthToken
+        )
+        setImage(res.data.uri)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchData()
+  }, [details])
   return (
     <div
       className={styles.step}
@@ -11,17 +28,10 @@ export default function Step(props) {
     >
       <div className={styles.top}>
         <h1>{props.details.title}</h1>
-        <p>{props.details.date}</p>
+        <p>{props.details.date.slice(0, 10)}</p>
       </div>
-      {props.details.images[0] && (
-        <img
-          className={styles.mainImg}
-          src={
-            props.details.images[0] ||
-            "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/81/2f/1e/caption.jpg?w=700&h=-1&s=1&cx=3705&cy=1254&chk=v1_660f815f73069c16e175"
-          }
-        />
-      )}
+
+      {image && <img className={styles.mainImg} src={image} />}
     </div>
   )
 }

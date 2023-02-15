@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import styles from "./addTravel.module.css"
 
 export default function AddTravel(props) {
-  const [image, setImage] = useState(null)
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [file, setFile] = useState()

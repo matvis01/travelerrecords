@@ -26,6 +26,7 @@ export default function TravelPage(props) {
     speed: -100,
   })
   const navigate = useNavigate()
+
   useEffect(() => {
     changeAdding()
 
@@ -34,8 +35,26 @@ export default function TravelPage(props) {
     }
     async function fetchData() {
       try {
-        const res = await api.get(`Stages/${travelId}`, addAuthToken)
-        console.log(res)
+        const res = await api.get(
+          `Stages/${travelId}/tripsStages`,
+          addAuthToken
+        )
+        const { data } = res
+        console.log("data:", data)
+        setTravel(() => {
+          return data.map((el) => {
+            return {
+              userId: el.userId,
+              title: el.title,
+              position: { lat: el.latitude, lng: el.longitude },
+              description: el.stageDesc,
+              date: el.creationDate,
+              images: "",
+              stageId: el.stageId,
+              travelId: travelId,
+            }
+          })
+        })
       } catch (e) {
         console.log(e)
       }
@@ -54,31 +73,7 @@ export default function TravelPage(props) {
   }
 
   async function addStep(details, index) {
-    let before = []
-    let after = []
-    for (let i = 0; i < travel.length; i++) {
-      if (i < index) {
-        before.push(travel[i])
-      } else {
-        after.push(travel[i])
-      }
-    }
-    setTravel(() => {
-      return [
-        ...before,
-        {
-          title: details.title,
-          position: details.position,
-          description: details.description,
-          date: details.date,
-          images: details.images,
-        },
-        ...after,
-      ]
-    })
-
     //{lat: 32.7766642, lng: -96.79698789999999}
-    console.log(details)
     try {
       const res = await api.post(
         `/Stages`,
@@ -93,6 +88,42 @@ export default function TravelPage(props) {
         },
         addAuthToken
       )
+      console.log("res1:", res)
+      const res2 = await api.post(
+        `/Storage/${userId}/${travelId}/${res.data.stageId}/0`,
+        details.image,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      console.log("git2")
+
+      let before = []
+      let after = []
+      for (let i = 0; i < travel.length; i++) {
+        if (i < index) {
+          before.push(travel[i])
+        } else {
+          after.push(travel[i])
+        }
+      }
+      setTravel(() => {
+        return [
+          ...before,
+          {
+            title: details.title,
+            position: details.position,
+            description: details.description,
+            date: details.date,
+            stageId: res.stageId,
+            travelId: travelId,
+          },
+          ...after,
+        ]
+      })
     } catch (e) {
       console.log(e)
     }

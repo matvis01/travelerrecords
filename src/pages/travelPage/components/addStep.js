@@ -8,10 +8,10 @@ import { GoogleMap, useLoadScript } from "@react-google-maps/api"
 const libraries = ["places"]
 
 export default function AddTravel(props) {
-  const [images, setImages] = useState([])
   const [title, setTitle] = useState("")
   const [date, setDate] = useState("")
   const [description, setDescription] = useState("")
+  const [file, setFile] = useState()
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
@@ -27,18 +27,14 @@ export default function AddTravel(props) {
   } = usePlacesAutocomplete()
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        setImages((prev) => [...prev, event.target.result])
-      }
-      reader.readAsDataURL(file)
-    }
+    setFile(event.target.files[0])
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
+
+    const formData = new FormData()
+    formData.append("file", file)
 
     const results = await getGeocode({ address: value })
     const position = await getLatLng(results[0])
@@ -48,7 +44,7 @@ export default function AddTravel(props) {
       description: description,
       position: position,
       date: date,
-      images: images,
+      image: formData,
     }
     props.save(details, props.index)
     props.changeAdding()
@@ -109,9 +105,8 @@ export default function AddTravel(props) {
             setDescription(e.target.value)
           }}
         ></textarea>
-        {/* <label className={styles.textCover}>Select photos:</label>
+        <label className={styles.textCover}>Select photo:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
-        <p>Added Photos: {images.length}</p> */}
         <div className={styles.buttons}>
           <button
             className={styles.subimitBtn}
