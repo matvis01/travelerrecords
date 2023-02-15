@@ -15,7 +15,7 @@ export default function AddBtn(props) {
         +
       </button>
       <span className={props.size === "big" ? styles.textBig : styles.text}>
-        add step
+        Add step
       </span>
     </div>
   )

@@ -11,7 +11,7 @@ export default function Step(props) {
     >
       <div className={styles.top}>
         <h1>{props.details.title}</h1>
-        <p>{props.details.date}</p>
+        <h1>{props.details.date}</h1>
       </div>
       {props.details.images[0] && (
         <img

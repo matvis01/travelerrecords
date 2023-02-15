@@ -1,12 +1,13 @@
 import React from "react"
+import styles from "./components.module.css"
 
 export default function Stage(props) {
   const { name, images, atractionName, title, description, cost } = props.data
 
   if (name === "images") {
     return (
-      <div>
-        <h1>Title</h1>
+      <div className={styles.stage}>
+        <h1 className={styles.h1}>Photos</h1>
         {images?.map((el, i) => (
           <img
             key={i}
@@ -17,17 +18,17 @@ export default function Stage(props) {
     )
   } else if (name === "description") {
     return (
-      <div>
-        <h1>{title}</h1>
-        <p>{description}</p>
+      <div className={styles.stage}>
+        <h1 className={styles.h1}>Description</h1>
+        <p className={styles.p}>{description}</p>
       </div>
     )
   } else {
     return (
-      <div>
-        <h1>{title}</h1>
-        <p>atraction: {atractionName}</p>
-        <p>cost: {cost}</p>
+      <div className={styles.stage}>
+        <h1 className={styles.h1}>Attraction</h1>
+        <p className={styles.p}>{atractionName}</p>
+        <p className={styles.p}>Cost: {cost}</p>
         {images && <img alt="image" src={images[0]} />}
       </div>
     )

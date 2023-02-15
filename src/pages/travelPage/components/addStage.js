@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import styles from "./components.module.css"
 
 export default function AddStage(props) {
   const [images, setImages] = useState([])
@@ -33,18 +34,10 @@ export default function AddStage(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text-box"
-        placeholder="Destination.."
-        value={title}
-        onChange={(e) => {
-          e.target.value.length < 25 && setTitle(e.target.value)
-        }}
-      />
+    <form className={styles.stage} onSubmit={handleSubmit}>
       {props.name === "images" ? (
         <>
-          <label>Select photos:</label>
+          <br></br><label>Select photos:</label>
           <input type="file" accept="image/*" onChange={handleImageChange} />
           <p>Added Photos: {images.length}</p>
         </>
@@ -53,7 +46,7 @@ export default function AddStage(props) {
           <label>Stage description:</label>
           <input
             type="text-box"
-            placeholder="description.."
+            placeholder="Description.."
             value={description}
             onChange={(e) => {
               setDescription(e.target.value)
@@ -62,19 +55,18 @@ export default function AddStage(props) {
         </>
       ) : (
         <>
-          <label>atraction:</label>
+        <label>Attraction description:</label>
           <input
             type="text-box"
-            placeholder="description.."
+            placeholder="Description.."
             value={atractionName}
             onChange={(e) => {
               setAtractionName(e.target.value)
             }}
           />
-          <label>cost:</label>
           <input
             type="text-box"
-            placeholder="cost.."
+            placeholder="Cost.."
             value={cost}
             onChange={(e) => {
               setCost(e.target.value)
@@ -84,15 +76,16 @@ export default function AddStage(props) {
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </>
       )}
-      <div>
+      <div className={styles.addButtons}>
         <button
+          className={styles.subimitBtn}
           onClick={() => {
             props.changeAdding()
           }}
         >
           Cancel
         </button>
-        <input type="submit" value={"Save"} />
+        <input className={styles.subimitBtn} type="submit" value={"Save"} />
       </div>
     </form>
   )

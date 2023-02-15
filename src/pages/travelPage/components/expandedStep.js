@@ -26,9 +26,12 @@ export default function ExpandedStep(props) {
     <div className={styles.step}>
       <div className={styles.top}>
         <h1>{props.details.title}</h1>
-        <p>{props.details.date}</p>
+        <h1>{props.details.date}</h1>
       </div>
-      <p>{props.details.description}</p>
+      <div className={styles.header}>
+        <h1 className={styles.h1}>Description</h1>
+        <p className={styles.p}>{props.details.description}</p>
+      </div>
       {stages?.map((el, i) => {
         return <Stage key={i} data={el} />
       })}
@@ -58,7 +61,7 @@ export default function ExpandedStep(props) {
             className={styles.editButton}
             onClick={() => setAddingStage({ adding: true, type: "atraction" })}
           >
-            Atraction
+            Attraction
           </button>
         </div>
       )}
@@ -70,7 +73,7 @@ export default function ExpandedStep(props) {
       ) : (
         <h1>Loading...</h1>
       )}
-      <button className={styles.editButton}>edit step</button>
+      <button className={styles.editButton}>Edit Step</button>
     </div>
   )
 }
