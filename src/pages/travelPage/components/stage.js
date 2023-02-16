@@ -1,33 +1,48 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import styles from "./components.module.css"
+import api, { addAuthToken } from "../../../api/api"
 
 export default function Stage(props) {
-  const { name, images, atractionName, title, description, cost } = props.data
+  const { name, images, atractionName, description, cost } = props.data
+  const [image, setImage] = useState("")
+  useEffect(() => {
+    async function fetchData() {
+      console.log("props", props.data)
+      try {
+        const res = await api.get(
+          `/Storage/${props.data.userId}/${props.data.travelId}/${props.data.stageId}/${props.data.postId}`,
+          addAuthToken
+        )
+        setImage(res.data.uri)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    if (name === "images") {
+      fetchData()
+    }
+  }, [props.data])
 
   if (name === "images") {
     return (
-      <div>
-        <h1>Title</h1>
-        {images?.map((el, i) => (
-          <img
-            key={i}
-            src={el || "https://cezim.pl/wp-content/uploads/2021/12/empty.jpg"}
-          />
-        ))}
+      <div className={styles.stage}>
+        <h1 className={styles.h1}>Photos</h1>
+        {image && <img src={image} />}
       </div>
     )
   } else if (name === "description") {
     return (
-      <div>
-        <h1>{title}</h1>
-        <p>{description}</p>
+      <div className={styles.stage}>
+        <h1 className={styles.h1}>Description</h1>
+        <p className={styles.p}>{description}</p>
       </div>
     )
   } else {
     return (
-      <div>
-        <h1>{title}</h1>
-        <p>atraction: {atractionName}</p>
-        <p>cost: {cost}</p>
+      <div className={styles.stage}>
+        <h1 className={styles.h1}>Attraction</h1>
+        <p className={styles.p}>{atractionName}</p>
+        <p className={styles.p}>Cost: {cost}</p>
         {images && <img alt="image" src={images[0]} />}
       </div>
     )

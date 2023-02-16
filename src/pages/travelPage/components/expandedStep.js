@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
+import { UserContext } from "../../../context/userContext"
 import styles from "./components.module.css"
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
 import Stage from "./stage"
@@ -11,7 +12,7 @@ export default function ExpandedStep(props) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY,
   })
-
+  const { userId } = useContext(UserContext).user
   useEffect(() => {
     async function fetchData() {
       try {
@@ -20,18 +21,32 @@ export default function ExpandedStep(props) {
 
           addAuthToken
         )
-        console.log("res:", res)
         const { data } = res
-        if (!data.imageId) {
-          setStages(() => {
-            return data.map((el) => {
+        console.log("data", data)
+        setStages(() => {
+          return data.map((el) => {
+            if (el.imageId) {
+              return {
+                name: "images",
+                imageId: el.imageId,
+                userId: userId,
+                travelId: el.tripId,
+                stageId: el.stageId,
+                postId: el.postId,
+              }
+            } else {
               return {
                 name: "description",
                 description: el.story,
+                userId: el.userId,
+                travelId: el.tripId,
+                stageId: el.stageId,
+                postId: el.postId,
               }
-            })
+            }
           })
-        }
+        })
+        console.log("stages:", stages)
       } catch (e) {
         console.log(e)
       }
@@ -41,6 +56,7 @@ export default function ExpandedStep(props) {
 
   async function saveStage(data) {
     const { details } = props
+    let postId = 0
     // {
     //   "postId": 0,
     //   "userId": 0,
@@ -50,8 +66,8 @@ export default function ExpandedStep(props) {
     //   "story": "string",
     //   "creationDate": "2023-02-15T17:05:09.772Z"
     // }
+    const travelId = Number(details.travelId)
     if (data.name === "description") {
-      const travelId = Number(details.travelId)
       try {
         const res = await api.post(
           "/Posts",
@@ -60,17 +76,55 @@ export default function ExpandedStep(props) {
             tripId: travelId,
             stageId: details.stageId,
             story: data.description,
-            imageId: "",
+            imageId: ``,
           },
           addAuthToken
         )
-        console.log("res:", res)
+      } catch (e) {
+        console.log(e)
+      }
+    } else if (data.name === "images") {
+      const travelId = Number(details.travelId)
+      try {
+        const res = await api.post(
+          "/Posts",
+          {
+            userId: details.userId,
+            tripId: travelId,
+            stageId: details.stageId,
+            story: "photo",
+            imageId: `${details.userId}/${travelId}/${details.stageId}/1`,
+          },
+          addAuthToken
+        )
+        console.log(res.data)
+        postId = res.data.postId
+        const res2 = await api.post(
+          `/Storage/${details.userId}/${travelId}/${details.stageId}/${res.data.postId}`,
+          data.images,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
       } catch (e) {
         console.log(e)
       }
     }
+    console.log("post id : ", postId)
     setStages((prev) => {
-      return [...prev, data]
+      return [
+        ...prev,
+        {
+          ...data,
+          userId: userId,
+          travelId: travelId,
+          stageId: details.stageId,
+          postId: postId,
+        },
+      ]
     })
   }
 
@@ -80,9 +134,12 @@ export default function ExpandedStep(props) {
     <div className={styles.step}>
       <div className={styles.top}>
         <h1>{props.details.title}</h1>
-        <p>{props.details.date.slice(0, 10)}</p>
+        <h1>{props.details.date.slice(0, 10)}</h1>
       </div>
-      <p>{props.details.description}</p>
+      <div className={styles.header}>
+        <h1 className={styles.h1}>Description</h1>
+        <p className={styles.p}>{props.details.description}</p>
+      </div>
       {stages?.map((el, i) => {
         return <Stage key={i} data={el} />
       })}
@@ -112,7 +169,7 @@ export default function ExpandedStep(props) {
             className={styles.editButton}
             onClick={() => setAddingStage({ adding: true, type: "atraction" })}
           >
-            Atraction
+            Attraction
           </button>
         </div>
       )}
@@ -124,7 +181,7 @@ export default function ExpandedStep(props) {
       ) : (
         <h1>Loading...</h1>
       )}
-      <button className={styles.editButton}>edit step</button>
+      <button className={styles.editButton}>Edit Step</button>
     </div>
   )
 }

@@ -73,7 +73,6 @@ export default function TravelPage(props) {
   }
 
   async function addStep(details, index) {
-    //{lat: 32.7766642, lng: -96.79698789999999}
     try {
       const res = await api.post(
         `/Stages`,
@@ -99,7 +98,6 @@ export default function TravelPage(props) {
           },
         }
       )
-      console.log("git2")
 
       let before = []
       let after = []
@@ -118,8 +116,9 @@ export default function TravelPage(props) {
             position: details.position,
             description: details.description,
             date: details.date,
-            stageId: res.stageId,
+            stageId: res.data.stageId,
             travelId: travelId,
+            userId: userId,
           },
           ...after,
         ]
