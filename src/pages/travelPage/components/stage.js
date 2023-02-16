@@ -7,7 +7,6 @@ export default function Stage(props) {
   const [image, setImage] = useState("")
   useEffect(() => {
     async function fetchData() {
-      console.log("props", props.data)
       try {
         const res = await api.get(
           `/Storage/${props.data.userId}/${props.data.travelId}/${props.data.stageId}/${props.data.postId}`,
@@ -41,9 +40,8 @@ export default function Stage(props) {
     return (
       <div className={styles.stage}>
         <h1 className={styles.h1}>Attraction</h1>
-        <p className={styles.p}>{atractionName}</p>
-        <p className={styles.p}>Cost: {cost}</p>
-        {images && <img alt="image" src={images[0]} />}
+        <p className={styles.p}>{description}</p>
+        <p className={styles.p}>Cost: {cost}zł</p>
       </div>
     )
   }

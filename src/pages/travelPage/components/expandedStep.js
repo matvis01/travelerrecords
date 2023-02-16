@@ -18,11 +18,9 @@ export default function ExpandedStep(props) {
       try {
         const res = await api.get(
           `/Posts/${props.details.stageId}/stagePosts`,
-
           addAuthToken
         )
         const { data } = res
-        console.log("data", data)
         setStages(() => {
           return data.map((el) => {
             if (el.imageId) {
@@ -46,10 +44,35 @@ export default function ExpandedStep(props) {
             }
           })
         })
-        console.log("stages:", stages)
       } catch (e) {
         console.log(e)
       }
+
+      try {
+        const res = await api.get(
+          `/Attractions/${props.details.stageId}/allStageAttractions`,
+          addAuthToken
+        )
+        const { data } = res
+        setStages((prev) => {
+          return [
+            ...prev,
+            ...data.map((el) => {
+              console.log("el:", el)
+              return {
+                name: "attraction",
+                description: el.attractionDesc,
+                postId: el.attractionId,
+                cost: el.popularity,
+              }
+            }),
+          ]
+        })
+      } catch (e) {
+        console.log(e)
+      }
+
+      console.log("stages", stages)
     }
     fetchData()
   }, [])
@@ -57,15 +80,6 @@ export default function ExpandedStep(props) {
   async function saveStage(data) {
     const { details } = props
     let postId = 0
-    // {
-    //   "postId": 0,
-    //   "userId": 0,
-    //   "tripId": 0,
-    //   "stageId": 0,
-    //   "imageId": "string",
-    //   "story": "string",
-    //   "creationDate": "2023-02-15T17:05:09.772Z"
-    // }
     const travelId = Number(details.travelId)
     if (data.name === "description") {
       try {
@@ -97,7 +111,6 @@ export default function ExpandedStep(props) {
           },
           addAuthToken
         )
-        console.log(res.data)
         postId = res.data.postId
         const res2 = await api.post(
           `/Storage/${details.userId}/${travelId}/${details.stageId}/${res.data.postId}`,
@@ -112,13 +125,40 @@ export default function ExpandedStep(props) {
       } catch (e) {
         console.log(e)
       }
+    } else {
+      try {
+        const res = await api.post(
+          `/Attractions`,
+          {
+            attractionName: "atraction",
+            attractionDesc: data.atractionName,
+            score: 0,
+            popularity: data.cost,
+          },
+          addAuthToken
+        )
+        const { attractionId } = res.data
+
+        const res2 = await api.post(
+          `/Attractions/${attractionId}/${details.stageId}`,
+          {
+            attractionId: attractionId,
+            stageId: details.stageId,
+          },
+          addAuthToken
+        )
+      } catch (e) {
+        console.log(e)
+      }
     }
-    console.log("post id : ", postId)
+
+    console.log("data:", data)
     setStages((prev) => {
       return [
         ...prev,
         {
           ...data,
+          description: data.atractionName,
           userId: userId,
           travelId: travelId,
           stageId: details.stageId,
@@ -127,8 +167,6 @@ export default function ExpandedStep(props) {
       ]
     })
   }
-
-  // console.log(" props.details.position:", props.details.position)
   const center = props.details.position
   return (
     <div className={styles.step}>
@@ -181,7 +219,9 @@ export default function ExpandedStep(props) {
       ) : (
         <h1>Loading...</h1>
       )}
-      <button className={styles.editButton}>Edit Step</button>
+      <button className={styles.TheEditButton} onClick={() => {}}>
+        Edit Step
+      </button>
     </div>
   )
 }

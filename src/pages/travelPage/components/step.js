@@ -5,8 +5,6 @@ import api, { addAuthToken } from "../../../api/api"
 export default function Step(props) {
   const [image, setImage] = useState("")
   const { details } = props
-
-  console.log(details)
   useEffect(() => {
     async function fetchData() {
       try {

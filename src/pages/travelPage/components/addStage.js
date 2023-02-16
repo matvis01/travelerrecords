@@ -66,8 +66,6 @@ export default function AddStage(props) {
               setCost(e.target.value)
             }}
           />
-          <label>Select photo:</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
         </>
       )}
       <div className={styles.addButtons}>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import styles from "./profile.module.css"
 import NavBar from "../../components/NavBar"
 import { UserContext } from "../../context/userContext"
-import api from "../../api/api"
+import api, { addAuthToken } from "../../api/api"
 
 export default function Profile(props) {
   const { user, setUser } = useContext(UserContext)
@@ -22,7 +22,7 @@ export default function Profile(props) {
     }
   }
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault()
     setUser((prev) => ({
       ...prev,
@@ -30,6 +30,15 @@ export default function Profile(props) {
       image: image,
       password: password,
     }))
+
+    try {
+      const res = await api.put(`Users/${user.userId}`, user, addAuthToken)
+      console.log("res:", res)
+    } catch (e) {
+      console.log(e)
+    }
+
+    console.log(user)
   }
 
   return (
@@ -56,7 +65,11 @@ export default function Profile(props) {
             setPassword(e.target.value)
           }}
         />
-        <input type="file" className={styles.chooseFile} onChange={savePicture}></input>
+        <input
+          type="file"
+          className={styles.chooseFile}
+          onChange={savePicture}
+        ></input>
         <input type="submit" value="Submit" className={styles.button} />
       </form>
     </div>
