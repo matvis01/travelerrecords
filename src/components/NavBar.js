@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useContext } from "react"
 import styles from "./navBar.module.css"
 import { useNavigate, useLocation } from "react-router-dom"
-import blankPicture from "../assets/blankProfile.png"
 import { UserContext } from "../context/userContext"
 
 export default function SideBar(props) {
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
   const navigate = useNavigate()
   const location = useLocation()
   let { pathname } = location
@@ -17,8 +16,6 @@ export default function SideBar(props) {
   }
   return (
     <nav className={styles.navBar}>
-      {/* <img src={user.image ? user.image : blankPicture} /> */}
-      {/* <h1 className={styles.name}>{user.username}</h1> */}
       <button
         className={pathname === "/home" ? styles.withBg : styles.xd}
         onClick={() => {
@@ -35,6 +32,11 @@ export default function SideBar(props) {
       >
         Profile
       </button>
+      {props.isTravel && (
+        <button className={styles.withBg} onClick={props.setTravel}>
+          Slide show
+        </button>
+      )}
       <button onClick={logout}>Log Out</button>
     </nav>
   )

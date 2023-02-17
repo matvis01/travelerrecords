@@ -219,9 +219,6 @@ export default function ExpandedStep(props) {
       ) : (
         <h1>Loading...</h1>
       )}
-      <button className={styles.TheEditButton} onClick={() => {}}>
-        Edit Step
-      </button>
     </div>
   )
 }

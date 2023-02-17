@@ -5,6 +5,7 @@ import Home from "./pages/home/homePage"
 import Register from "./pages/login/register"
 import Profile from "./pages/profile/profile"
 import TravelPage from "./pages/travelPage/travelPage"
+import SlideShow from "./pages/travelPage/components/slideShow"
 
 function App() {
   return (

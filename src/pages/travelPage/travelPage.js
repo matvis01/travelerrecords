@@ -11,6 +11,7 @@ import AddBtn from "./components/addBtn"
 import Step from "./components/step"
 import ExpandedStep from "./components/expandedStep"
 import AddStep from "./components/addStep"
+import Slideshow from "./components/slideShow"
 
 import { useParallax } from "react-scroll-parallax"
 
@@ -21,7 +22,7 @@ export default function TravelPage(props) {
   const [focused, setFocused] = useState(-1)
   const [adding, setAdding] = useState(true)
   const [addingIndex, setAddingIndex] = useState(-1)
-
+  const [slideShowOn, setslideShowOn] = useState(false)
   const parallax = useParallax({
     speed: -100,
   })
@@ -40,7 +41,6 @@ export default function TravelPage(props) {
           addAuthToken
         )
         const { data } = res
-        console.log("data:", data)
         setTravel(() => {
           return data.map((el) => {
             return {
@@ -150,7 +150,12 @@ export default function TravelPage(props) {
   return (
     <>
       <div className={styles.page}>
-        <NavBar />
+        <NavBar
+          isTravel={true}
+          setTravel={() => {
+            setslideShowOn(true)
+          }}
+        />
         <div className={styles.travel}>
           <div className={styles.navBarBg}></div>
           <div className={styles.start}>
@@ -176,6 +181,17 @@ export default function TravelPage(props) {
             }}
             changeAdding={changeAdding}
             index={addingIndex}
+          />
+        )}
+        {slideShowOn && (
+          <Slideshow
+            userId={userId}
+            travelId={travelId}
+            close={(e) => {
+              if (e.target.id == "overlay") {
+                setslideShowOn(false)
+              }
+            }}
           />
         )}
       </div>
