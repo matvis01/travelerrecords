@@ -39,15 +39,8 @@ export default function Slideshow(props) {
       <div className={styles.slides} id="inner">
         <Slide>
           {images?.map((slideImage, index) => (
-            <div className={styles.imageContainer}>
-              <img
-                src={slideImage.url}
-                key={index}
-                // style={{
-                //   backgroundImage: `url(${slideImage.url})`,
-                // }}
-                className={styles.slideStyle}
-              ></img>
+            <div className={styles.imageContainer} key={index}>
+              <img src={slideImage.url} className={styles.slideStyle}></img>
             </div>
           ))}
         </Slide>

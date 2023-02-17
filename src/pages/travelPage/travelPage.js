@@ -146,7 +146,6 @@ export default function TravelPage(props) {
       </div>
     )
   })
-
   return (
     <>
       <div className={styles.page}>
