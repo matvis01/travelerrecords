@@ -31,9 +31,9 @@ export default function TravelPage(props) {
   useEffect(() => {
     changeAdding()
 
-    if (!localStorage.getItem("token")) {
-      navigate("/")
-    }
+    // if (!localStorage.getItem("token")) {
+    //   navigate("/")
+    // }
     async function fetchData() {
       try {
         const res = await api.get(
