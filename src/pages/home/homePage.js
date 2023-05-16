@@ -21,9 +21,9 @@ export default function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      navigate("/")
-    }
+    // if (!localStorage.getItem("token")) {
+    //   navigate("/")
+    // }
     const fetchData = async () => {
       try {
         const res = await api.get(
@@ -42,7 +42,7 @@ export default function Home() {
 
   function changeAdding() {
     setAdding((prev) => !prev)
-    //scroll.scrollToTop(); - probowałem po nacisnieciu przycisku zeby scrollowac na poczatek strony
+    //scroll.scrollToTop();
   }
 
   async function addTravel(name, description, image) {
