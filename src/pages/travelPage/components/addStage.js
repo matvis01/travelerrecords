@@ -22,6 +22,7 @@ export default function AddStage(props) {
       description: description,
       cost: cost,
       images: formData,
+      file: file,
     }
     props.save(data)
     props.changeAdding()

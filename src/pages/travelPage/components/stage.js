@@ -26,7 +26,9 @@ export default function Stage(props) {
     return (
       <div className={styles.stage}>
         <h1 className={styles.h1}>Photos</h1>
-        {image && <img src={image} />}
+        {(image && <img src={image} />) || (
+          <img src="https://picsum.photos/500/300?random" />
+        )}
       </div>
     )
   } else if (name === "description") {

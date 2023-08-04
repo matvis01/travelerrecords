@@ -14,6 +14,7 @@ export default function Step(props) {
         )
         setImage(res.data.uri)
       } catch (e) {
+        setImage("https://picsum.photos/500/300?random")
         console.log(e)
       }
     }
@@ -30,7 +31,6 @@ export default function Step(props) {
         <h1>{props.details.title}</h1>
         <p>{props.details.date.slice(0, 10)}</p>
       </div>
-
       {image && <img className={styles.mainImg} src={image} />}
     </div>
   )

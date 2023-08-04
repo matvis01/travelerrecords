@@ -17,7 +17,8 @@ import { useParallax } from "react-scroll-parallax"
 
 export default function TravelPage(props) {
   const travelId = useParams().id
-  const { userId } = useContext(UserContext).user
+  const { userId } = useContext(UserContext)?.user
+
   const [travel, setTravel] = useState([])
   const [focused, setFocused] = useState(-1)
   const [adding, setAdding] = useState(true)
@@ -73,6 +74,9 @@ export default function TravelPage(props) {
   }
 
   async function addStep(details, index) {
+    let before = [...travel]
+    let after = []
+    let stageId = 0
     try {
       const res = await api.post(
         `/Stages`,
@@ -87,6 +91,7 @@ export default function TravelPage(props) {
         },
         addAuthToken
       )
+      stageId = res.data.stageId
       console.log("res1:", res)
       const res2 = await api.post(
         `/Storage/${userId}/${travelId}/${res.data.stageId}/0`,
@@ -99,8 +104,6 @@ export default function TravelPage(props) {
         }
       )
 
-      let before = []
-      let after = []
       for (let i = 0; i < travel.length; i++) {
         if (i < index) {
           before.push(travel[i])
@@ -108,24 +111,24 @@ export default function TravelPage(props) {
           after.push(travel[i])
         }
       }
-      setTravel(() => {
-        return [
-          ...before,
-          {
-            title: details.title,
-            position: details.position,
-            description: details.description,
-            date: details.date,
-            stageId: res.data.stageId,
-            travelId: travelId,
-            userId: userId,
-          },
-          ...after,
-        ]
-      })
     } catch (e) {
       console.log(e)
     }
+    setTravel(() => {
+      return [
+        ...before,
+        {
+          title: details.title,
+          position: details.position,
+          description: details.description,
+          date: details.date,
+          stageId: stageId,
+          travelId: travelId,
+          userId: userId,
+        },
+        ...after,
+      ]
+    })
   }
 
   const steps = travel?.map((el, index) => {
@@ -159,7 +162,7 @@ export default function TravelPage(props) {
           <div className={styles.navBarBg}></div>
           <div className={styles.start}>
             <BsHouse className={styles.icon} />
-            <h1>Trip started</h1>
+            <h2>Trip started</h2>
           </div>
           {steps}
           <AddBtn
@@ -169,7 +172,7 @@ export default function TravelPage(props) {
           />
           <div className={styles.end}>
             <GrFlag className={styles.icon} />
-            <h1>Trip ended</h1>
+            <h2>Trip ended</h2>
           </div>
         </div>
         <img ref={parallax.ref} src={image} className={styles.image} />
