@@ -9,10 +9,6 @@ export default function Login() {
   const { user, setUser } = useContext(UserContext)
   const [confPass, setConfPass] = useState("")
 
-  useEffect(() => {
-    setUser({})
-  }, [])
-
   function setPassword(event) {
     setUser((prev) => {
       return { ...prev, password: event.target.value }
@@ -66,7 +62,7 @@ export default function Login() {
         password: user.password,
         email: user.email,
       })
-      // setUser(res.data)
+      setUser(res.data)
       navigate("/")
     } catch (err) {
       setUser({})

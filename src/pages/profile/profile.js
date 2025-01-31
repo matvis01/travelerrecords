@@ -9,25 +9,15 @@ export default function Profile(props) {
 
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
-  const [image, setImage] = useState(null)
 
-  function savePicture(event) {
-    const file = event.target.files[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        setImage(event.target.result)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
+
+
 
   async function submit(e) {
     e.preventDefault()
     setUser((prev) => ({
       ...prev,
       username: userName,
-      image: image,
       password: password,
     }))
 
@@ -44,8 +34,14 @@ export default function Profile(props) {
   return (
     <div className={styles.page}>
       <NavBar />
+      <div className={styles.myForm}>
+        <h1 className={styles.text}>User Profile</h1>
+        <p className={styles.text}>Username: {user.username}</p>
+        <p className={styles.text}>Email: {user.email}</p>
+        
+      </div>
 
-      <form className={styles.myForm} onSubmit={submit}>
+      {/* <form className={styles.myForm} onSubmit={submit}>
         <label className={styles.text}>Profile settings: </label>
         <input
           type="text-box"
@@ -65,13 +61,9 @@ export default function Profile(props) {
             setPassword(e.target.value)
           }}
         />
-        <input
-          type="file"
-          className={styles.chooseFile}
-          onChange={savePicture}
-        ></input>
+      
         <input type="submit" value="Submit" className={styles.button} />
-      </form>
+      </form> */}
     </div>
   )
 }

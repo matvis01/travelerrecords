@@ -34,7 +34,7 @@ export default function AddStage(props) {
         <>
           <br></br>
           <label>Select photo:</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
+          <input type="file" accept="image/jpeg" onChange={handleImageChange} />
         </>
       ) : props.name == "description" ? (
         <>

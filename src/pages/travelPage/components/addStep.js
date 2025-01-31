@@ -105,7 +105,7 @@ export default function AddTravel(props) {
           }}
         ></textarea>
         <label className={styles.textCover}>Select photo:</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
+        <input type="file" accept="image/jpeg" onChange={handleImageChange} />
         <div className={styles.buttons}>
           <button
             className={styles.subimitBtn}

@@ -66,7 +66,7 @@ export default function AddTravel(props) {
         <label className={styles.textCover}>Select cover photo:</label>
         <input
           type="file"
-          accept="image/*"
+          accept="image/jpeg"
           className={styles.chooseFile}
           onChange={handleImageChange}
         />

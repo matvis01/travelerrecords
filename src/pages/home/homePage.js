@@ -18,6 +18,8 @@ export default function Home() {
   const { user } = useContext(UserContext)
   const [loading, setLoading] = useState(false)
 
+  console.log(travels);
+
   const navigate = useNavigate()
 
   useEffect(() => {

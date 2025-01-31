@@ -38,7 +38,7 @@ export default function TravelPage(props) {
     async function fetchData() {
       try {
         const res = await api.get(
-          `Stages/${travelId}/tripsStages`,
+          `Stages/${travelId}/tripStages`,
           addAuthToken
         )
         const { data } = res
@@ -74,7 +74,7 @@ export default function TravelPage(props) {
   }
 
   async function addStep(details, index) {
-    let before = [...travel]
+    let before = []
     let after = []
     let stageId = 0
     try {

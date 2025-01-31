@@ -36,8 +36,9 @@ export default function Login() {
             `/Users/${user.username}/${user.password}`,
             addAuthToken
           )
-          setUser(res2.data)
-          localStorage.setItem("user", JSON.stringify(res2.data))
+          const u = res2.data.value
+          setUser(u)
+          localStorage.setItem("user", JSON.stringify(u))
           navigate("/home")
         })
     } catch (err) {

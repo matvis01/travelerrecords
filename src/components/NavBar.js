@@ -32,11 +32,11 @@ export default function SideBar(props) {
       >
         Profile
       </button>
-      {props.isTravel && (
+      {/* {props.isTravel && (
         <button className={styles.withBg} onClick={props.setTravel}>
           Slide show
         </button>
-      )}
+      )} */}
       <button onClick={logout}>Log Out</button>
     </nav>
   )
