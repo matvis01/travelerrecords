@@ -158,7 +158,7 @@ export default function ExpandedStep(props) {
         ...prev,
         {
           ...data,
-          description: data.atractionName,
+          description: data.atractionName || data.description,
           userId: userId,
           travelId: travelId,
           stageId: details.stageId,
